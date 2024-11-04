@@ -1,5 +1,8 @@
 package com.algoryachev.coursework2;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,26 +21,32 @@ public class JavaQuestionController {
         this.questionService = questionService;
     }
 
+    @Operation(summary = "Get a random set of questions", description = "Returns a list of random questions, with the amount specified by the user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Questions retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid number of questions requested")
+    })
+
     // add new question
-    @PostMapping("/add")
+    @PostMapping("/java/add")
     public ResponseEntity<String> addQuestion(@RequestBody Question question) {
         questionService.addQuestion(question);
         return new ResponseEntity<>("Question added successfully", HttpStatus.CREATED);
     }
 
     // get all questions
-    @GetMapping("/all")
+    @GetMapping("/java/find")
     public ResponseEntity<List<Question>> getAllQuestions() {
         List<Question> questions = questionService.getAllQuestions();
         return new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
     // delete question by index
-    @DeleteMapping("/delete/{index}")
+    @DeleteMapping("/java/remove/{index}")
     public ResponseEntity<String> deleteQuestionByIndex(@PathVariable int index) {
         Question question = questionService.getQuestionByIndex(index);
         if (question != null) {
-            ((JavaQuestionService) questionService).deleteQuestionByIndex(index);
+            questionService.deleteQuestionByIndex(index);
             return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
         }
         return new ResponseEntity<>("Question not found", HttpStatus.NOT_FOUND);

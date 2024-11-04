@@ -38,6 +38,7 @@ public class JavaQuestionService implements QuestionService {
         return null;
     }
 
+    @Override
     public void deleteQuestionByIndex(int index) {
         if (index >= 0 && index < questions.size()) {
             questions.remove(index);

@@ -15,4 +15,8 @@ public class Randomizer {
         int index = random.nextInt(questions.size());
         return questions.get(index);
     }
+
+    public Random getRandom() {
+        return random;
+    }
 }

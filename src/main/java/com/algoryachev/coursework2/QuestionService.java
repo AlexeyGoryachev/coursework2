@@ -7,4 +7,5 @@ public interface QuestionService {
     List<Question> getAllQuestions();
     Question getRandomQuestion();
     Question getQuestionByIndex(int index);
+    void deleteQuestionByIndex(int index);
 }
