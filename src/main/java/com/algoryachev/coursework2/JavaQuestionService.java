@@ -4,13 +4,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class JavaQuestionService implements QuestionService {
 
     private final List<Question> questions = new ArrayList<>();
-    private final Random random = new Random();
+    private final Randomizer randomizer;
+
+    public JavaQuestionService(Randomizer randomizer) {
+        this.randomizer = randomizer;
+    }
 
     @Override
     public void addQuestion(Question question) {
@@ -23,11 +26,8 @@ public class JavaQuestionService implements QuestionService {
     }
 
     @Override
-    public int getRandomQuestionIndex() {
-        if (questions.isEmpty()) {
-            return -1;
-        }
-        return random.nextInt(questions.size());
+    public Question getRandomQuestion() {
+        return randomizer.getRandomQuestion(questions);
     }
 
     @Override
