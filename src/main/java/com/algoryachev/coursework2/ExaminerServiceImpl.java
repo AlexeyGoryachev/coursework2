@@ -19,19 +19,19 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     @Override
     public List<Question> getQuestions(int amount) {
-        // Получаем уникальные вопросы, исключая дубликаты по полю "question"
+        // Getting unique questions, excluding duplicates by field "question"
         Set<Question> uniqueQuestions = questionService.getAllQuestions().stream()
                 .collect(Collectors.toMap(Question::getQuestion, q -> q, (existing, replacement) -> existing))
                 .values()
                 .stream()
                 .collect(Collectors.toSet());
 
-        // Проверяем, достаточно ли уникальных вопросов
+        // Checking if there are enough unique questions
         if (amount > uniqueQuestions.size()) {
             throw new IllegalArgumentException("Requested amount exceeds available unique questions.");
         }
 
-        // Возвращаем случайные уникальные вопросы
+        // Returning random unique questions
         return uniqueQuestions.stream()
                 .limit(amount)
                 .collect(Collectors.toList());

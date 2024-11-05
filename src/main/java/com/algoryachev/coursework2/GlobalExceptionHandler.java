@@ -28,5 +28,4 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleDuplicateQuestionException(DuplicateQuestionException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
-
 }
