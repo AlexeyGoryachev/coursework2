@@ -28,7 +28,7 @@ public class ExaminerServiceImpl implements ExaminerService {
 
         // Проверяем, достаточно ли уникальных вопросов
         if (amount > uniqueQuestions.size()) {
-            throw new IllegalArgumentException("Запрашиваемое количество вопросов превышает доступное количество уникальных вопросов.");
+            throw new IllegalArgumentException("Requested amount exceeds available unique questions.");
         }
 
         // Возвращаем случайные уникальные вопросы

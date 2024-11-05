@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/java-questions")
@@ -46,9 +47,9 @@ public class JavaQuestionController {
     public ResponseEntity<String> deleteQuestionByIndex(@PathVariable int index) {
         Question question = questionService.getQuestionByIndex(index);
         if (question != null) {
-            questionService.deleteQuestionByIndex(index);
-            return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
+            throw new NoSuchElementException("Question with index " + index + " not found.");
         }
-        return new ResponseEntity<>("Question not found", HttpStatus.NOT_FOUND);
+        questionService.deleteQuestionByIndex(index);
+        return new ResponseEntity<>("Question deleted successfully", HttpStatus.OK);
     }
 }

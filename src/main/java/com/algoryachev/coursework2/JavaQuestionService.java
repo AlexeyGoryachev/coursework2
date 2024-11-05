@@ -17,6 +17,9 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public void addQuestion(Question question) {
+        if (questions.contains(question)) {
+            throw new DuplicateQuestionException("Question already exists: " + question.getQuestion());
+        }
         questions.add(question);
     }
 
